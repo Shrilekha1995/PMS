@@ -1,0 +1,45 @@
+.low{
+  background-color: #4CAF50;
+}
+
+.medium{
+   background-color: blue;
+}
+
+.high{
+   background-color:red;
+}
+
+
+#task {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+
+#task td, #task th {
+  border: 1px solid #ddd;
+  padding: 4px;
+}
+
+#task tr:nth-child(even){background-color: #f2f2f2;}
+
+#task tr:hover {background-color: #ddd;}
+
+#task th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+ 
+  color: white;
+}
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}

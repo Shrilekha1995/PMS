@@ -1,0 +1,73 @@
+<h3 align="right" style="color:blue">
+    Welcome to PMS {{loginName}}</h3>
+<br><br>
+<p style="color:red">{{msg}}</p>
+<form>
+    <input type="text" name="proId" [(ngModel)]="proId"><button (click)="searchProjectByID(proId)">Search</button>
+
+</form>
+<br>
+
+<table id="project">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Project Name</th>
+            <th>Status</th>
+            <th>Team Members</th>
+            <th>Scrum Master</th>
+            <th *ngIf='roleFlag'>Update</th>
+            <th *ngIf='roleFlag'>Delete</th>
+            <th>Details</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let project of projects">
+            <td><input [disabled]='id!=project.id' type="text" value="{{project.id|uppercase}}" [(ngModel)]='project.id'> </td>
+            <td><input [disabled]='id!=project.id' type="text" value="{{project.name|uppercase}}" [(ngModel)]='project.name'>                </td>
+            <td><input [disabled]='id!=project.id' type="text" value="{{project.status|uppercase}}" [(ngModel)]='project.status'>                </td>
+            <td><input [disabled]='id!=project.id' type="text" value="{{project.teamMembers}}" [(ngModel)]='project.teamMembers'>                </td>
+            <td><input [disabled]='id!=project.id' type="text" value="{{project.scrumMaster|uppercase}}" [(ngModel)]='project.scrumMaster'>                </td>
+            <td *ngIf='roleFlag'><button *ngIf='!flag' (click)="onEditProject(project.id)">Edit</button>
+                <button *ngIf='flag' (click)="onUpdateProject(project)">Update</button></td>
+            <td *ngIf='roleFlag'><button (click)="onDeleteProject(project.id)">Delete</button></td>
+            <td><button (click)="onClickProjectDashboard(project)">Project Dashboard</button></td>
+
+
+
+        </tr>
+        <tr *ngIf='projects.length===0'>
+            <td colspan="7">Data is not present</td>
+        </tr>
+    </tbody>
+</table>
+<button *ngIf="roleFlag" (click)="onAdd()">Add Project</button>
+<div *ngIf="addFlag">
+    <table>
+        <tbody>
+
+            <tr>
+                <td>Id:</td>
+                <td><input type="text" name="project.id" [(ngModel)]="project.id"></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="project.name" [(ngModel)]="project.name"></td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <td><input type="text" name="project.status" [(ngModel)]="project.status"></td>
+            </tr>
+            <tr>
+                <td>Team Members:</td>
+                <td><input type="text" name="project.teamMembers" [(ngModel)]="project.teamMembers"></td>
+            </tr>
+            <tr>
+                <td>Scrum Master:</td>
+                <td><input type="text" name="project.scrumMaster" [(ngModel)]="project.scrumMaster"></td>
+            </tr>
+            <tr><button (click)="onAddProject()">Add</button></tr>
+        </tbody>
+    </table>
+</div>

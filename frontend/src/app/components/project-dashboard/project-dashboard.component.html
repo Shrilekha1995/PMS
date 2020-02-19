@@ -1,0 +1,188 @@
+<h2 align="center">
+    {{name}}</h2>
+<app-backlog *ngIf='roleFlag'></app-backlog><button *ngIf='roleFlag' (click)="createTask()">Create Task </button>
+<button *ngIf='roleFlag' (click)="onAssignTask()">Assign Task</button>
+<div *ngIf='assignFlag'>
+    Select task:<select [(ngModel)]="taskId"><option *ngFor="let task of tasks" value='{{task.taskId}}'>{{task.name}}</option></select>    Select developer:<select [(ngModel)]="developerId"> <option value="{{developer.id}}"  *ngFor="let developer of developers">{{developer.name}}</option></select><br>
+    <button (click)='onAssign()'>Assign</button>
+</div>
+<br><br> Select Backlog:<select [(ngModel)]="backlogId"><option *ngFor="let backlog of backlogs" value='{{backlog.backlogId}}'>{{backlog.backlogId}}</option></select>
+<button (click)="showTasks()">Show tasks</button>
+
+<div *ngIf="addFlag">
+    <table>
+        <tbody>
+            <tr>
+                <td>Id:</td>
+                <td><input type="text" name="task.taskId" [(ngModel)]="task.taskId"></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="task.name" [(ngModel)]="task.name"></td>
+            </tr>
+            <tr>
+                <td>Start Date:</td>
+                <td><input type="date" name="task.start_At" [(ngModel)]="task.start_At"></td>
+            </tr>
+            <tr>
+                <td>End Date:</td>
+                <td><input type="date" name="task.end" [(ngModel)]="task.end_At"></td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <!--<td><input type="text" name="task.status" [(ngModel)]="task.status"></td>-->
+
+                <td>
+                    <select name="task.status" [(ngModel)]="task.status">
+                    <option>toDo</option>
+                    <option>inProgress</option>
+                    <option>complete</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>priority:</td>
+                <!--<td><input type="text" name="task.priority" [(ngModel)]="task.priority"></td>-->
+                <td><select name="task.priority" [(ngModel)]="task.priority">
+                    <option>high</option>
+                    <option>medium</option>
+                    <option>low</option>
+                    </select>
+
+                </td>
+            </tr>
+
+            <tr><button (click)="onAddtask()">Add</button></tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<table id="task">
+    <thead>
+        <th class="low">To do</th>
+        <th class="low">In Progress</th>
+        <th class="low">Completed</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <tr *ngFor="let task of todoList">
+                    <td>
+
+
+
+                        <table>
+                            <thead>
+                                <th class="{{getPriority(task.priority)}}"></th>
+
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <input [disabled]='id!=task.taskId' type="text" [(ngModel)]='task.name' name='{{task.name}}'>
+                                        <br>
+                                        <input [disabled]='true' type="text"  [value]='getUserById(task)' name='{{task.start_At}}'>
+                                        <input  type="text" [(ngModel)]='task.start_At' name='{{task.start_At}}'>
+                                        <input  type="text" [(ngModel)]='task.end_At' name='{{task.end_At}}'>
+                                        <br>
+                                        <input [hidden]='id!=task.taskId' type="text" [(ngModel)]='task.status' name='{{task.status}}'>
+                                        <input [hidden]='id!=task.taskId' type="text" [(ngModel)]='task.priority' name='{{task.priority}}'>
+                                        <br>
+
+
+
+
+                                        <button *ngIf='id!=task.taskId' (click)='editTask(task.taskId)'>edit</button>
+                                        <button *ngIf='id==task.taskId' (click)='updateTask(task)'>update</button>
+                                        <button (click)='deleteTask(task.taskId)'>delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </td>
+                </tr>
+            </td>
+            <td>
+                <tr *ngFor="let task of inProgressList">
+                    <td>
+
+                        <table>
+                            <thead>
+                                <th class="{{getPriority(task.priority)}}"></th>
+
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <input [disabled]='id!=task.taskId' type="text" [(ngModel)]='task.name' name='{{task.name}}'>
+                                        <br>
+                                        <input [disabled]='true' type="text"  [value]='getUserById(task)' name='{{task.start_At}}'>
+                                        <input  type="text" [(ngModel)]='task.start_At' name='{{task.start_At}}'>
+                                        <input  type="text" [(ngModel)]='task.end_At' name='{{task.end_At}}'>
+                                        <br>
+                                        <input [hidden]='id!=task.taskId' type="text" [(ngModel)]='task.status' name='{{task.status}}'>
+                                        <input [hidden]='id!=task.taskId' type="text" [(ngModel)]='task.priority' name='{{task.priority}}'>
+                                        <br>
+
+
+
+
+                                        <button *ngIf='id!=task.taskId' (click)='editTask(task.taskId)'>edit</button>
+                                        <button *ngIf='id==task.taskId' (click)='updateTask(task)'>update</button>
+                                        <button (click)='deleteTask(task.taskId)'>delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </td>
+                </tr>
+            </td>
+            <td>
+                <tr *ngFor="let task of completeList">
+                    <td>
+
+                       <table>
+                            <thead>
+                                <th class="{{getPriority(task.priority)}}"></th>
+
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <input [disabled]='id!=task.taskId' type="text" [(ngModel)]='task.name' name='{{task.name}}'>
+                                        <br>
+                                        <input [disabled]='true' type="text"  [value]='getUserById(task)' name='{{task.userId}}'>
+                                        <input  type="text" [(ngModel)]='task.start_At' name='{{task.start_At}}'>
+                                        <input  type="text" [(ngModel)]='task.end_At' name='{{task.end_At}}'>
+                                        <br>
+                                        <input [hidden]='id!=task.taskId' type="text" [(ngModel)]='task.status' name='{{task.status}}'>
+                                        <input [hidden]='id!=task.taskId' type="text" [(ngModel)]='task.priority' name='{{task.priority}}'>
+                                        <br>
+
+
+
+
+                                        <button *ngIf='id!=task.taskId' (click)='editTask(task.taskId)'>edit</button>
+                                        <button *ngIf='id==task.taskId' (click)='updateTask(task)'>update</button>
+                                        <button (click)='deleteTask(task.taskId)'>delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </td>
+                </tr>
+            </td>
+        </tr>
+
+
+    </tbody>
+</table>

@@ -1,0 +1,22 @@
+ <button (click)="onAddBacklog()">Add backlog </button>
+ <table *ngIf='addBacklogFlag'>
+        <tbody>
+            <tr>
+                <td> BackLog Id:</td>
+                <td><input type="text" name="backlog.backlogId" [(ngModel)]="backlog.backlogId"></td>
+            </tr>
+            <tr>
+                <td>Requirements:</td>
+                <td><input type="text" name="backlog.requirement" [(ngModel)]="backlog.requirement"></td>
+            </tr>
+            <tr>
+                <td>Start Date:</td>
+                <td><input type="date" name="backlog.start_At" [(ngModel)]="backlog.start_At"></td>
+            </tr>
+            <tr>
+                <td>End Date:</td>
+                <td><input type="date" name="backlog.end" [(ngModel)]="backlog.end_At"></td>
+            </tr>
+        <tr><button (click)="addBacklog()">Add</button><button (click)="onCancel()">cancel</button></tr>
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+<br><br>
+<p style="color:red">{{msg}}</p>
+<div *ngIf='userFlag'>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Login Name</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.id|uppercase}}" [(ngModel)]='user.id'> </td>
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.name|uppercase}}" [(ngModel)]='user.name'> </td>
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.phone}}" [(ngModel)]='user.phone'> </td>
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.email}}" [(ngModel)]='user.email'> </td>
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.loginName}}" [(ngModel)]='user.loginName'> </td>
+                <!--<td><input [disabled]='id!=user.id' type="text" value="{{user.password}}" [(ngModel)]='user.password'> </td>-->
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.role}}" [(ngModel)]='user.role'> </td>
+                <td><input [disabled]='id!=user.id' type="text" value="{{user.status|uppercase}}" [(ngModel)]='user.status'>                    </td>
+                <td><button *ngIf='!flag' (click)="onEditUser(user.id)">Edit</button>
+                    <button *ngIf='flag' (click)="onUpdateUser(user)">Update</button></td>
+                <td><button (click)="onDeleteuser(user.id)">Delete</button></td>
+
+
+
+            </tr>
+            <tr *ngIf='users.length===0'>
+                <td colspan="7">Data is not present</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
